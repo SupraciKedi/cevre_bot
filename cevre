@@ -1,0 +1,70 @@
+import discord
+import random
+import time
+from discord.ext import commands
+
+intents = discord.Intents.default()
+
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='-', intents=intents)
+
+
+@bot.event
+async def on_ready():
+    print(f'{bot.user} olarak giriş yaptık')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Merhaba {bot.user}! Ben çevre dostu bir botum!')
+    time.sleep(1)
+    await ctx.send(f'Haydi biraz konuşalım!')
+
+
+@bot.command()
+async def sohbet(ctx):
+    await ctx.send(f'Merhaba! Ne hakkında konuşalım?')
+
+@bot.command()
+async def cevre(ctx):
+    await ctx.send(f'Çevre ve kirlilik hakkında bir şey yapmak istiyorsanız oneri komutunu kullanın!')
+
+@bot.command()
+async def oneri(ctx):
+    await ctx.send(f'çevreyle alakalı ne araştırmak istiyorsun? 1-Hava Kirliliği / 2-Su Kirliliği / 3-Toprak Kirliliği / Karikatur')
+
+@bot.command()
+async def Su(ctx):
+    await ctx.send(f"Su kirliliği, doğanın sessiz çığlığıdır; onu duymazsak, yaşamın susuzluğunu çekeceğiz.")
+    time.sleep(1)
+    await ctx.send(f"Su, yaşamın kaynağıdır. Onu kirletmek, kendi kaynağımızı zehirlemek demektir.")
+
+@bot.command()
+async def Hava(ctx):
+    await ctx.send(f"Hava kirliliği, gökyüzündeki sessiz çığlıktır; nefes alırken doğaya attığımız bir ihanettir.")
+    time.sleep(1)
+    await ctx.send(f"Hava kirliliği, ciğerlerimizi boğan sessiz bir katildir. Temiz hava için bugün adım atmalıyız, yoksa yarın nefes alacak bir şey bulamayabiliriz.")
+
+@bot.command()
+async def Toprak(ctx):
+    await ctx.send(f"Toprak, bizim üzerinde yürüdüğümüz yaşamın temelidir. Onu kirletmek, kendi köklerimizi zehirlemek anlamına gelir.")    
+    time.sleep(1)
+    await ctx.send(f"Toprak, gelecek nesillere miras bırakacağımız en önemli varlıktır. Onu kirletmek, yarını yok etmektir.")
+
+
+@bot.command()
+async def Karikatur(ctx):
+    # Rastgele bir dosya seçmek için dosya isimlerini bir listeye ekleyin
+    file_list = ["Ders\ders5\cevre.jpeg", "Ders\ders5\cevre1.jpeg", "Ders\ders5\cevre2.jpeg"]
+    # Listeden rastgele bir dosya seçin
+    selected_file = random.choice(file_list)
+    with open(selected_file, 'rb') as f:
+        picture = discord.File(f)
+    await ctx.send(file=picture)
+    time.sleep(1)
+    await ctx.send(f'BU gidişle dünyamızda nefes almamız uzayda nefes almaktan daha zor olacak :(')
+    time.sleep(1)
+    await ctx.send(f'Kendi geleceğimizi kendimiz bitiriyoruz :(')
+    time.sleep(1)
+    await ctx.send(f'keşke her kirlilik boyayla gitse ama her boya kirlilikle gidiyor :(')
+bot.run("bot_token")
